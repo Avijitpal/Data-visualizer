@@ -1,77 +1,82 @@
-//import React, { Component } from 'react'
-import { useState } from "react";
-import React from "react";
-function Form(){
- const [Amount,setAmount] = React.useState();
- const [Month,setMonth] = React.useState(" ");
- //var data=[];
- const [quants,setquants] = useState({
-   data: {
-     Amount:" " ,
-     Month:" "
+import React, { Component } from 'react'
+//import { Component, useState } from "react";
+//import React from "react";
+class Form extends Component{
+
+constructor(props){
+  super(props);
+  this.state={
+    Amount:0,
+    Month: " ",
+    data:[],
+  };
+   this.handleChange = this.handleChange.bind(this);
 }
 
-});
-  // Form submitting logic, prevent default page refresh 
+handleChange(event){
+  this.setState({
+    Amount:event.target.value,
+    Month:event.target.value
+  })
+}
+
+addData(){
+  let dataArray= [...data]
+  dataArray.push(this.state.Amount);
+  this.setState({
+    dataArray
+  });
+}
+
+handleSubmit(event){
+  event.preventDefault();
+  console.log(dataArray)
+}
 
 
-  setquants(prevState=>({
-      ...prevState,
-       quants:{
-         ...prevState.quants,
-         Amount:Amount,
-         Month:Month
 
-       }
-   
-    }));
-  const handleSubmit = event => {
-    event.preventDefault();
-        console.log(quants)
-  }
-   
-
-
-
-    return(
-      <form onClick={handleSubmit}>
-        <div>
-        {/*This is the Amount selection */}
-          <label htmlFor='Amount'>Amount</label>
-          <input 
-            name='Amount'
-            type = "number"
-            value = {Amount}
-            onChange={e=>setAmount(e.target.value)}
-            required 
-          />
-        </div>
-         {/*This is the for the Selecting the month */}
-        <div >
-          <label htmlFor='Month'>Month</label>
-           <select name='Month' value={Month} 
-           onChange={e=>setMonth(e.target.value) } required >
-           <option name='Month' value="January">January</option>
-           <option name='Month' value="February">February</option>
-           <option name='Month' value="March">March</option>
-           <option name='Month' value="April">April</option>
-           <option name='Month' value="May">May</option>
-           <option name='Month' value="June">June</option>
-           <option name='Month' value="July">July</option>
-           <option name='Month' value="August">August</option>
-           <option name='Month' value="September">September</option>
-           <option name='Month' value="October">October</option>
-           <option name='Month' value="November">November</option>
-           <option name='Month' value="December">December</option>
-           </select>
-        </div>
-      {/*Button  to add the value  */}
-        <div>
-          <button onClick={setquants}>ADD</button>
-        </div>
-
-      </form>
-    )
-  }
-export default Form
-//1.placeholder needs to be added
+render(){
+  return(
+    <form onSubmit={this.handleSubmit}
+    >
+      <div>
+      {/*This is the Amount selection */}
+        <label htmlFor='Amount'>Amount</label>
+        <input 
+          name='Amount'
+          type = "number"
+          value = {this.state.Amount}
+          onChange ={this.handleChange}
+          required 
+        />
+      </div>
+       {/*This is the for the Selecting the month */}
+      <div >
+        <label htmlFor='Month'>Month</label>
+         <select name='Month' value={this.state.Month} 
+         onChange ={this.handleChange}
+         required >
+         <option name='Month' value="January">January</option>
+         <option name='Month' value="February">February</option>
+         <option name='Month' value="March">March</option>
+         <option name='Month' value="April">April</option>
+         <option name='Month' value="May">May</option>
+         <option name='Month' value="June">June</option>
+         <option name='Month' value="July">July</option>
+         <option name='Month' value="August">August</option>
+         <option name='Month' value="September">September</option>
+         <option name='Month' value="October">October</option>
+         <option name='Month' value="November">November</option>
+         <option name='Month' value="December">December</option>
+         </select>
+      </div>
+    {/*Button  to add the value  */}
+      <div>
+        <button onClick={()=>this.addData}>ADD</button>
+      </div>
+  
+    </form>
+  );
+}
+}
+export default Form;
