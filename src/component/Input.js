@@ -1,31 +1,36 @@
-import React, { Component, useState} from 'react'
-//import { Component, useState } from "react";
-//import React from "react";
+import React, { useState} from 'react'
+
+
 function Form(){
   const[allvalues,setvalues]=useState({
      Amount:' ',
      Month:' ',
   });
+  const[Data,setData]=useState({
+    "Amount":' ',
+    "Month":' '
+  });
 
- const data=[]
   const handleChange=event=>{
-        setvalues({...allvalues,[event.target.name]:event.target.value}) 
+        setvalues({...allvalues,
+          [event.target.name]:[event.target.value]})
   }
  const addItem=()=>{
-   let item = allvalues;
-     data.push(item);
-     setvalues({
-       item
-     });
-     console.log(JSON.stringify(data))
+   const itemamount = allvalues.Amount;
+   const itemmonth  = allvalues.Month;
+     setData({...Data,
+      "Amount":itemamount,
+      "Month":itemmonth
+     })
+     
  }
 
   const handleSubmit=event=>{
     event.preventDefault();
-     // console.log(allvalues)
+     console.log(JSON.stringify(Data))
     }
-  
-    return(
+
+    return (
       <form onSubmit={handleSubmit}>
         <div>
         {/*This is the Amount selection */}
@@ -61,10 +66,12 @@ function Form(){
       {/*Button  to add the value  */}
         <div>
           <button onClick={addItem}>ADD</button>
+        
         </div>
     
       </form>
     );
 }
-  
+
 export default Form;
+
